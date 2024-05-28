@@ -1,0 +1,214 @@
+
+{% extends './base.html' %}
+
+
+{% block content%}
+<title>{% block title %}Farmer Page{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #faaaf6;
+        }
+
+        .covid-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            margin-bottom:100px;
+          }
+
+        .upload-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .image-container {
+            margin-top: 50px;
+           
+            align-items: left;
+            margin-right: 50px;
+            margin-left:10px;
+            padding:20px;
+
+        }
+
+        .result-img {
+            max-width: 400px;
+            max-height: 400px;
+            margin-bottom: 50px;
+        }
+
+        .predicted-class {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+            padding: 10px;
+            background-color: #1E90FF;
+            color: #fff;
+        }
+
+        .feedback-prevention-container {
+            margin-top: 70px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prevention-treatment-container {
+            
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prevention-container {
+           
+            border: 5px solid #0260f7;
+            background-color:white;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .feedback-title, .prevention-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+
+        /* Placeholder styling */
+        .placeholder {
+            color: #999;
+            font-style: italic;
+            list-style-type: disc;
+        }
+    </style>
+    <nav class="navbar navbar navbar-expand-lg fixed-top bg-body-tertiary bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+             <a class="navbar-brand" href="{% url 'index'  %}">Home</a>
+             <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+               <li class="nav-item">
+                 <a class="nav-link"  href="{% url 'farmer_query_submission'  %}">Place Queries</a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link" href="{% url 'expert_feedback_recieved'  %}">View Feedback</a> 
+               </li>
+               <li class="nav-item">
+                <a class="nav-link" href="{% url 'disease'%}">Disease Detection</a> 
+              </li>
+             </ul>
+             
+           </div>
+         </div>
+        </nav>
+</head>
+<body>
+   
+ 
+        {% if image_path %}
+        <div class="result-container">
+            <div class="image-container">
+                
+                <img src="{{ MEDIA_URL }}{{ image_path }}" alt="Uploaded Image" class="result-img">
+                <header class="bg-primary text-white text-center py-3">
+                    <h3>Predicted Class: {{ predicted_class }} </h3>
+                    <!-- Add any additional header content you'd like -->
+                </header>
+            </div>
+            {% endif %}
+            <div class="feedback-prevention-container">
+                <div class="prevention-treatment-container">
+                    <div class="prevention-container">
+                        <h3 class="prevention-title">Prevention Measures/रोकथाम उपाय:</h3>
+                        <ul class="prevention-list">
+                            <!-- Placeholder for prevention measures -->
+                            <li > Maintain a clean and sanitized growing environment./<strong>साफ र स्वच्छ विकास वातावरण बनाएर राख्नुहोस्। </strong></li>
+                            <li > Start with high-quality spawn from reliable sources./<strong>विश्वसनीय स्रोतबाट उच्च गुणस्तरको स्पान बाट सुरु गर्नुहोस्। </strong></li>
+                            <li > Isolate any infected or diseased mushrooms immediately./<strong>सञ्चित वा रोगी छाउराहरूलाई तत्काल अलग गर्नुहोस्। </strong> </li>
+                            <li > Avoid overwatering and maintain proper moisture levels./<strong>अत्यधिक पानी दिएर बच्नुहोस् र उचित आर्द्रता स्तरको राख्नुहोस्। </strong></li>
+                            
+                        </ul>
+                    </div>
+
+                    <div class="prevention-container">
+                        <h3 class="prevention-title"><strong>Treatment Solution/रोगको उपचार</strong></h3>
+                        <ul class="treatment-list">
+                            <li>Remove and dispose of infected mushrooms and nearby contaminated materials./<strong>संक्रमित छाउराहरू र नजिकका प्रदूषित सामग्रीहरूलाई हटाउनुहोस् र उनीहरूलाई उचित तरिकामा निस्काशित गर्नुहोस्। </strong> </li>
+                            <li>Consult with agricultural experts or specialists to determine appropriate fungicides for controlling yellow blotch./<strong>पहेला गेली विशेषज्ञ वा खेती विशेषज्ञहरूसँग संपर्क गर्नुहोस्, र यसरी पाइएको खेतीमा पहेलो फंगाइसाइडहरूको नियन्त्रण गर्नका लागि उचित फंगाइसाइडहरूलाई निर्धारण गर्नुहोस्। </strong> </li>
+                            <li> Ensure proper ventilation to reduce humidity levels./<strong>उचित वायुमार्गनी सुनिश्चित गर्नुहोस् जसले आर्द्रता स्तरहरू घटाउँछ। </strong> </li>
+                            
+                            <!-- Placeholder for treatment solution -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+
+
+
+    <section>
+
+        <div class="container">
+            <h1 style="padding: 15px; background-color: rgb(153, 156, 150); color: white;"
+                class="text-center my-3 content-h1">
+                Recommended Products/सिफारिस गरिएको उत्पाद </h1>
+        </div>
+
+        <div class="container">
+            <div class="d-flex">
+              <div class="card" style="width: 400px; margin:auto;">
+                {% load static %}
+                <img src="{% static 'images/test.png' %}" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                  <h5 class="card-title">Dose/खुराक </h5>
+                  <p class="card-text">Decreasing the relative humidity of air and spray streptocycline @400ppm every two day/<strong>हवाको सापेक्षिक आर्द्रताको मात्राको कमी गर्न र हरेक दुई दिनमा स्ट्रेप्टोसाइक्लिन @ 400ppm स्प्रे गर्नुहोस्।।</strong></p>
+                </div>
+              </div>
+            
+              <div class="card" style="width: 400px; margin:auto;">
+                <img src="https://www.dhanuka.com/storage/products/August2021/pg45rK89HAN2PE3HCe8H.png" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                  <h5 class="card-title">Dose/खुराक </h5>
+                  <p class="card-text">Spray Kasugamycin mixed in water 1:20 every day if condition is sever /<strong>यदि स्थिति गम्भीर छ भने, प्रतिदिन 1:20 पानीमा मिस गरिएको कसुगामाइसिनलाई स्प्रे गर्नुहोस्।</strong></p>
+                </div>
+              </div>
+              
+            
+              <div class="card" style="width: 400px; margin:auto;">
+                <img src="https://5.imimg.com/data5/SELLER/Default/2021/10/NL/YX/BI/2702891/chloramine-t-sd-500gm-500x500.jpg" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                  <h5 class="card-title">Dose/खुराक </h5>
+                  <p class="card-text">Spray Chloramine-T once a day/<strong>प्रतिदिन एक पटक ख्लोरामाइन टि स्प्रे गर्नुहोस्।</strong></p>
+                </div>
+              </div>>
+            </div>
+          
+        </div>
+
+    </section>
+
+</body>
+</html>
+
+{% endblock %}

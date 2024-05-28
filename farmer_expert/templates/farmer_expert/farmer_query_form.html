@@ -1,0 +1,98 @@
+<!-- query_submission.html -->
+{% extends './base.html' %}
+
+{% block content%}
+
+<title>{% block title %}Place Query {% endblock %}</title>
+
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #faaaf6;
+  }
+
+  .farmer-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color:#f5eceb;  
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+  }
+
+  .farmer-form h2{
+    text-align:center;
+    text-color: #fc0820;
+  }
+
+
+</style>
+
+<nav class="navbar navbar navbar-expand-lg fixed-top bg-body-tertiary bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+       <a class="navbar-brand" href="{% url 'index'  %}">Home</a>
+       <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+         <li class="nav-item">
+           <a class="nav-link"  href="{% url 'farmer_query_submission'  %}">Place Queries</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="{% url 'expert_feedback_recieved'  %}">View Feedback</a> 
+         </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{% url 'disease'%}">Disease Detection</a> 
+        </li>
+       </ul>
+       
+     </div>
+   </div>
+  </nav>
+
+
+<div class ="container">
+<div class = "farmer-form">
+  <h2> Place your queries to expert</h2>
+
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="mb-4 row">
+      <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label>
+     
+      {{ form.first_name}}
+    
+  </div>
+
+
+    <div class="mb-4 row">
+      <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label>
+      {{ form.last_name}}
+    </div>
+
+    <div class="mb-4 row">
+      <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+      {{ form.email}}
+    </div>
+
+    <div class="mb-4 row ">
+      <label for="{{ form.title_of_query.id_for_label }}" class="form-label">Query Title</label>
+      {{ form.title_of_query}}
+    </div>
+
+    <div class="mb-4 row">
+      <label for="{{ form.description_of_query.id_for_label }}" class="form-label">Description</label>
+      {{ form.description_of_query}}
+    </div>
+
+
+    <input type="submit"  value="Submit Query" class="btn btn-pill text-white btn-block btn-primary">
+
+
+  </form>
+
+  {% endblock %}

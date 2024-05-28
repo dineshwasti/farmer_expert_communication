@@ -1,0 +1,212 @@
+{% extends './base.html' %}
+
+{% block content%}
+<title>{% block title %}Farmer Page{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #faaaf6;
+        }
+
+        .covid-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            margin-bottom:100px;
+          }
+
+        .upload-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .image-container {
+            margin-top: 50px;
+           
+            align-items: left;
+            margin-right: 50px;
+            margin-left:10px;
+            padding:20px;
+
+        }
+
+        .result-img {
+            max-width: 400px;
+            max-height: 400px;
+            margin-bottom: 50px;
+        }
+
+        .predicted-class {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+            padding: 10px;
+            background-color: #1E90FF;
+            color: #fff;
+        }
+
+        .feedback-prevention-container {
+            margin-top: 70px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prevention-treatment-container {
+            
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prevention-container {
+           
+            border: 5px solid #0260f7;
+            background-color:white;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .feedback-title, .prevention-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+
+        /* Placeholder styling */
+        .placeholder {
+            color: #999;
+            font-style: italic;
+            list-style-type: disc;
+        }
+    </style>
+    <nav class="navbar navbar navbar-expand-lg fixed-top bg-body-tertiary bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+             <a class="navbar-brand" href="{% url 'index'  %}">Home</a>
+             <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+               <li class="nav-item">
+                 <a class="nav-link"  href="{% url 'farmer_query_submission'  %}">Place Queries</a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link" href="{% url 'expert_feedback_recieved'  %}">View Feedback</a> 
+               </li>
+               <li class="nav-item">
+                <a class="nav-link" href="{% url 'disease'%}">Disease Detection</a> 
+              </li>
+             </ul>
+             
+           </div>
+         </div>
+        </nav>
+</head>
+<body>
+   
+ 
+        {% if image_path %}
+        <div class="result-container">
+            <div class="image-container">
+                
+                <img src="{{ MEDIA_URL }}{{ image_path }}" alt="Uploaded Image" class="result-img">
+                <header class="bg-primary text-white text-center py-3">
+                    <h3>Predicted Class: {{ predicted_class }} </h3>
+                    <!-- Add any additional header content you'd like -->
+                </header>
+            </div>
+            {% endif %}
+            <div class="feedback-prevention-container">
+                <div class="prevention-treatment-container">
+                    <div class="prevention-container">
+                        <h3 class="prevention-title">Prevention Measures/रोकथाम उपाय:</h3>
+                        <ul class="prevention-list">
+                            <!-- Placeholder for prevention measures -->
+                            <li > Keep the growing environment clean and sanitized./<strong>वृद्धि वातावरण सफा र स्वच्छ राख्नुहोस्। </strong></li>
+                            <li > Use good quality, disease-free substrate./<strong>उत्तम गुणस्तरको, रोगमुक्त सब्स्ट्रेट प्रयोग गर्नुहोस्। </strong></li>
+                            <li > Regularly inspect and remove contaminated mushrooms./<strong>नियमित रूपमा जाँच गर्नुहोस् र दूषित मशरूमहरूलाई निकाल्नुहोस्। </strong> </li>
+                            <li > Monitor for signs of green mold and take prompt action./<strong>हरियो ढागा बर्दोको लागि संकेतहरूको निगरानी गर्नुहोस् र तत्काल कार्यवाही गर्नुहोस्। </strong></li>
+                            
+                        </ul>
+                    </div>
+
+                    <div class="prevention-container">
+                        <h3 class="prevention-title"><strong>Treatment Solution/रोगको उपचार</strong></h3>
+                        <ul class="treatment-list">
+                            <li > Isolation of Infected Areas/<strong>वृअस्वस्थ भएको क्षेत्रको अलग बनाउनु (आइसोलेसन गर्नु)। </strong> </li>
+                            <li> Improved Ventilation/<strong>सुधारिएको वेन्टिलेसन (वायु सर्कुलेसनमा सुधारिएको)। </strong> </li>
+                            <li> Quarantine New Substrates/<strong>नयाँ सब्स्ट्रेटहरूलाई आलोचन गर्नु (क्वारेन्टाइन गर्नु)। </strong> </li>
+                            
+                            <!-- Placeholder for treatment solution -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+
+
+
+    <section>
+
+        <div class="container">
+            <h1 style="padding: 15px; background-color: rgb(153, 156, 150); color: white;"
+                class="text-center my-3 content-h1">
+                Recommended Products/सिफारिस गरिएको उत्पाद </h1>
+        </div>
+
+        <div class="container">
+            <div class="d-flex">
+              <div class="card" style="width: 400px; margin:auto;">
+                <img src="https://m.media-amazon.com/images/I/61xTVd3gkpL._SX522_.jpg" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                  <h5 class="card-title">Dose/खुराक </h5>
+                  <p class="card-text">As recommended by expert/<strong>विशेषज्ञको सिफारिस अनुसार।</strong></p>
+                  <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+              </div>
+            
+              <div class="card" style="width: 400px; margin:auto;">
+                <img src="https://m.media-amazon.com/images/I/91X2Gsf1v+L._SY500_.jpg" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                  <h5 class="card-title">Dose/खुराक </h5>
+                  <p class="card-text">Spraying the affected mushroom with carbendazim  @0.1% can help to control the disease/<strong>खोपको प्रभावित भागमा कार्बेन्डाजिम  @0.1% थाक्दा रोगको नियन्त्रणमा मद्दत गर्न सक्छ।</strong></p>
+                </div>
+              </div>
+              
+            
+              <div class="card" style="width: 400px; margin:auto;">
+                <img src="https://www.seedworldusa.com/cdn/shop/products/qp720094_2048x.jpg?v=1611236666" class="card-img-top" alt="Card Image">
+                <div class="card-body">
+                  <h5 class="card-title">Dose/खुराक </h5>
+                  <p class="card-text">Mixing Chlorothalonil @254ml/100m2 with casing material/<strong>क्लोरोथालोनिल @ 254ml/100m2 स्प्रे गर्नुहोस्।</strong></p>
+                </div>
+              </div>>
+            </div>
+          
+        </div>
+
+    </section>
+
+</body>
+</html>
+
+{% endblock %}

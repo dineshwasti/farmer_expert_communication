@@ -1,0 +1,98 @@
+
+<!-- query_list.html -->
+
+{% extends './base.html' %}
+
+{% block content%}
+
+<title>{% block title %}Query Details Page{% endblock %}</title>
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #faaaf6;
+  }
+
+  .Queries-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+  }
+    .table-bordered {
+      border: 5px solid #dee2e6;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+      padding: 10px;
+      border: 2px solid #dee2e6;
+    }
+    .test
+
+  </style>
+
+  <nav class="navbar navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+         <a class="navbar-brand" href="{% url 'index'  %}">Home</a>
+         <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+           <li class="nav-item">
+             <a class="nav-link"  href="{% url 'farmer_query_list'  %}">Queries Details</a>
+           </li>
+          
+         </ul>
+         
+       </div>
+     </div>
+    </nav>
+
+  
+
+
+<body>
+
+
+    
+
+  <div class="container">
+    <div class="Queries-list-container">
+
+    <table class="table table-bordered">
+       
+      <thead>
+        <h2 class="text-center"> Farmer Queries list</h2>
+        <tr>
+            
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Title of Query</th>
+          <th scope="col">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for farmer_query in farmer_queries %}
+        <tr>
+          <td>{{ farmer_query.id }}</td>
+          <td>{{farmer_query.first_name }} {{ farmer_query.last_name }}</td>
+          <td>{{ farmer_query.title_of_query }}</td>
+          <td><a class="btn btn-primary" href="{% url 'farmer_query_details' farmer_query.id %}" role="button">Details</a></td>
+
+          
+        </tr>
+        {% endfor %}
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+   
+
+  
+</body>
+
+  {% endblock %}

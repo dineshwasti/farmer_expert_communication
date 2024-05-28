@@ -1,0 +1,91 @@
+{% extends './base.html' %}
+
+{% block content%}
+
+<title>{% block title %}View Feedback {% endblock %}</title>
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #faaaf6;
+  }
+
+
+  .message-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    max-width: 500px;
+    text-align: justify;
+  }
+
+  .message-card .client-name {
+    font-weight: bold;
+  }
+
+  .message-card .message-content {
+    margin-top: 5px;
+  }
+
+  .expert-reply {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color:#f5eceb;  
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+  }
+
+  .expert-reply h2{
+    text-align:center;
+
+  }
+
+</style>
+<nav class="navbar navbar navbar-expand-lg fixed-top bg-body-tertiary bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+       <a class="navbar-brand" href="{% url 'index'  %}">Home</a>
+       <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+         <li class="nav-item">
+           <a class="nav-link"  href="{% url 'farmer_query_submission'  %}">Place Queries</a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="{% url 'expert_feedback_recieved'  %}">View Feedback</a> 
+         </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{% url 'disease'%}">Disease Detection</a> 
+        </li>
+       </ul>
+       
+       
+     </div>
+   </div>
+  </nav>
+
+
+<div class ="container">
+    <div class = "expert-reply">
+      <h2> Expert Reply</h2>
+      {% for reply in Expert %}
+    <div class="container mt-8">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          
+          <div class="message-card">
+            <div class="client-name">{{ reply.first_name|capfirst }}  {{ reply.last_name|capfirst }}</div>
+            <div class="message-content">{{ reply.expert_reply }}?</div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+{%endblock%}
+

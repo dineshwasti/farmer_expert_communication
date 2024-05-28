@@ -1,0 +1,180 @@
+{% extends './base.html' %}
+
+{% block content%}
+<title>{% block title %}Disease upload page{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #faaaf6;;
+          }
+      
+          .suspect-image-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+            margin-bottom:100px;
+          }
+          .suspect-image-container h2 {
+            text-align:center;
+          }
+
+        .upload-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .result-img {
+            max-width: 100%;
+            max-height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .predicted-class {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .feedback-prevention-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prevention-treatment-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prevention-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .feedback-title, .prevention-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .feedback-textbox, .prevention-textbox {
+            resize: vertical;
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* Placeholder styling */
+        .placeholder {
+            color: #999;
+            font-style: italic;
+            list-style-type: none;
+        }
+        .predicted-container {
+            max-width: 200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            margin-bottom:100px;
+          }
+    </style>
+</head>
+<nav class="navbar navbar navbar-expand-lg fixed-top bg-body-tertiary bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+         <a class="navbar-brand" href="{% url 'index'  %}">Home</a>
+         <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+           <li class="nav-item">
+             <a class="nav-link"  href="{% url 'farmer_query_submission'  %}">Place Queries</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="{% url 'expert_feedback_recieved'  %}">View Feedback</a> 
+           </li>
+         </ul>
+         
+       </div>
+     </div>
+    </nav>
+<body>
+    <div class="container">
+        {% if image_path %}
+        <div class="result-container">
+            <div class="image-container">
+                <h2 class="mb-4">Uploaded Image:</h2>
+                <img src="{{ MEDIA_URL }}{{ image_path }}" alt="Uploaded Image" class="result-img">
+                <div class="predicted-class">
+                    {% if predicted_class %}
+                     <div class = "predicted-container"   Predicted Class: {{ predicted_class }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="feedback-prevention-container">
+                <div class="prevention-treatment-container">
+                    <div class="prevention-container">
+                        <h3 class="prevention-title">Prevention Measures:</h3>
+                        <ul class="prevention-list">
+                            <!-- Placeholder for prevention measures -->
+                            <li class="placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt nisi et nulla volutpat malesuada.</li>
+                        </ul>
+                    </div>
+
+                    <div class="prevention-container">
+                        <h3 class="prevention-title">Treatment Solution:</h3>
+                        <ul class="treatment-list">
+                            <!-- Placeholder for treatment solution -->
+                            <li class="placeholder">Vestibulum euismod lacinia metus eget venenatis. Suspendisse eu mi a est suscipit consectetur.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        {% else %}
+        <div class = "container">
+            <div class="suspect-image-container">
+        
+            <h2 class="mb-4">Upload Suspect Oyster Image</h2>
+            <form action="{% url 'classify' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input class="form-control" type="file" name="image" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit">Upload</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</body>
+    {% endblock %}
